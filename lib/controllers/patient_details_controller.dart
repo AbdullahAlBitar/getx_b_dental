@@ -6,21 +6,23 @@ import '../main.dart';
 
 class PatientDetailsController extends GetxController {
   var jwt = '';
-  var id = 0.obs;
-  var name = ''.obs;
-  var phone = ''.obs;
-  var sex = ''.obs;
-  var dues = ''.obs;
-  var visits = <Map<String, dynamic>>[].obs;
-  var payments = <Map<String, dynamic>>[].obs;
+  var id = 0;
+  var name = '';
+  var phone = '';
+  var sex = '';
+  var dues = '';
+  var visits = <Map<String, dynamic>>[];
+  var payments = <Map<String, dynamic>>[];
 
   @override
   void onInit() {
     super.onInit();
     final patientId = Get.arguments as int?;
     if (patientId != null) {
-      id.value = patientId;
+      id = patientId;
       getInfo();
+    }else{
+      Get.back();
     }
   }
 
@@ -33,7 +35,7 @@ class PatientDetailsController extends GetxController {
 
     try {
       final response = await http.get(
-        Uri.parse('$url/patients/profile/${id.value}'),
+        Uri.parse('$url/patients/profile/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $jwt',
@@ -42,12 +44,13 @@ class PatientDetailsController extends GetxController {
 
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
-        name.value = res['name'];
-        phone.value = res['phone'];
-        sex.value = res['sex'];
-        dues.value = res['dues'].toString().split('.')[0]; // Remove decimal
+        name = res['name'];
+        phone = res['phone'];
+        sex = res['sex'];
+        dues = res['dues'].toString().split('.')[0]; // Remove decimal
         visits.assignAll(List<Map<String, dynamic>>.from(res['visits']));
         payments.assignAll(List<Map<String, dynamic>>.from(res['payments']));
+        update();
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);

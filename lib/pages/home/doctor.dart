@@ -35,25 +35,28 @@ class Doctor extends StatelessWidget {
                             'Dr. ',
                             style: textTheme.titleSmall,
                           ),
-                          Obx(() => Text(
-                                controller.name.value,
-                                style:textTheme.titleMedium,
-                              )),
+                          GetBuilder<DoctorController>(
+                              builder: (controller) => Text(
+                                    controller.name,
+                                    style: textTheme.titleMedium,
+                                  )),
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Obx(() => Text(
-                            controller.phone.value,
-                            style: textTheme.titleSmall,
-                          )),
+                      GetBuilder<DoctorController>(
+                          builder: (controller) => Text(
+                                controller.phone,
+                                style: textTheme.titleSmall,
+                              )),
                     ],
                   ),
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.edit_note_rounded,
-                        size: 36,
-                      ))
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.edit_note_rounded,
+                      size: 36,
+                    ),
+                  )
                 ],
               ),
               const Divider(),
@@ -66,10 +69,11 @@ class Doctor extends StatelessWidget {
                         'Dues: ',
                         style: textTheme.titleSmall,
                       ),
-                      Obx(() => Text(
-                            controller.dues.value,
-                            style: textTheme.labelLarge,
-                          )),
+                      GetBuilder<DoctorController>(
+                          builder: (controller) => Text(
+                                controller.dues,
+                                style: textTheme.labelLarge,
+                              )),
                       Text(
                         ' SYP',
                         style: textTheme.labelLarge,
@@ -89,17 +93,18 @@ class Doctor extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(10),
                     height: 200,
-                    child: Obx(() => SingleChildScrollView(
-                          child: Column(
-                            children: controller.visits
-                                .map((v) => VisitCard(
-                                    v['id'],
-                                    v['name'],
-                                    double.parse(v['charge'].toString()),
-                                    DateTime.parse(v['date'])))
-                                .toList(),
-                          ),
-                        )),
+                    child: GetBuilder<DoctorController>(
+                        builder: (controller) => SingleChildScrollView(
+                              child: Column(
+                                children: controller.visits
+                                    .map((v) => VisitCard(
+                                        v['id'],
+                                        v['name'],
+                                        double.parse(v['charge'].toString()),
+                                        DateTime.parse(v['date'])))
+                                    .toList(),
+                              ),
+                            )),
                   ),
                 ],
               ),

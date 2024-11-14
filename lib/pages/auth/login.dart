@@ -47,29 +47,32 @@ class Login extends StatelessWidget {
                   onPressed: () {
                     Get.toNamed("/signup");
                   },
-                  child: Text("Sign Up?",
-                  style: textTheme.labelMedium,
+                  child: Text(
+                    "Sign Up?",
+                    style: textTheme.labelMedium,
                   ),
                 ),
-                Obx(() => ElevatedButton(
-                      onPressed: controller.isLoading.value
-                          ? null
-                          : () async {
-                              await controller.login();
-                            },
-                      child: controller.isLoading.value
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
-                          : Text("Login",
-                          style: textTheme.labelMedium,
-                          ),
-                    )),
+                GetBuilder<AuthController>(
+                    builder: (controller) => ElevatedButton(
+                          onPressed: controller.isLoading
+                              ? null
+                              : () async {
+                                  await controller.login();
+                                },
+                          child: controller.isLoading
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Text(
+                                  "Login",
+                                  style: textTheme.labelMedium,
+                                ),
+                        )),
               ],
             ),
           ],

@@ -5,10 +5,10 @@ import '../main.dart';
 
 
 class DoctorController extends GetxController {
-  var name = ''.obs;
-  var phone = ''.obs;
-  var dues = ''.obs;
-  var visits = <Map<String, dynamic>>[].obs;
+  String name = '';
+  String phone = '';
+  String dues = '';
+  List<Map<String, dynamic>> visits = [];
 
   @override
   void onInit() {
@@ -17,7 +17,6 @@ class DoctorController extends GetxController {
   }
 
   Future<void> getUserInfo() async {
-
     String jwt = sharedPreferences!.getString('jwt') ?? '';
 
     if (jwt.isEmpty) {
@@ -36,10 +35,11 @@ class DoctorController extends GetxController {
 
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
-        name.value = res['name'];
-        phone.value = res['phone'];
-        dues.value = res['dues'].toString().split(".")[0];
-        visits.assignAll(List<Map<String, dynamic>>.from(res['visits']));
+        name = res['name'];
+        phone = res['phone'];
+        dues = res['dues'].toString().split(".")[0];
+        visits = List<Map<String, dynamic>>.from(res['visits']);
+        update(); // Add this to trigger UI update
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);

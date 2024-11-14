@@ -18,93 +18,98 @@ class VisitDetails extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
-          child: Obx(
-            () => Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GetBuilder<VisitDetailsController>(
+                        builder: (controller) => Text(
+                              controller.name,
+                              style: textTheme.titleSmall,
+                            )),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.edit_note_rounded,
+                        size: 36,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              GetBuilder<VisitDetailsController>(
+                  builder: (controller) => Text(
+                        controller.description,
+                        softWrap: true,
+                        style: textTheme.labelSmall,
+                      )),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GetBuilder<VisitDetailsController>(
+                      builder: (controller) => Text(
+                            controller.date.substring(0, 10),
+                            softWrap: true,
+                            style: textTheme.labelMedium,
+                          )),
+                ],
+              ),
+              Divider(color: theme.dividerColor),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
                       Text(
-                        controller.name.value,
+                        'Dr: ',
                         style: textTheme.titleSmall,
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.edit_note_rounded,
-                          size: 36,
-                        ),
+                      GetBuilder<VisitDetailsController>(
+                          builder: (controller) => Text(
+                                controller.doctorName,
+                                style: textTheme.labelLarge,
+                              )),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Text(
+                        'Charge: ',
+                        style: textTheme.titleSmall,
+                      ),
+                      GetBuilder<VisitDetailsController>(
+                          builder: (controller) => Text(
+                                controller.charge,
+                                style: textTheme.labelLarge,
+                              )),
+                      Text(
+                        ' SYP',
+                        style: textTheme.labelLarge,
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  controller.description.value,
-                  softWrap: true,
-                  style: textTheme.labelSmall,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      controller.date.value.substring(0, 10),
-                      softWrap: true,
-                      style: textTheme.labelMedium,
-                    ),
-                  ],
-                ),
-                Divider(color: theme.dividerColor),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Dr: ',
-                          style: textTheme.titleSmall,
-                        ),
-                        Text(
-                          controller.doctorName.value,
-                          style: textTheme.labelLarge,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Text(
-                          'Charge: ',
-                          style: textTheme.titleSmall,
-                        ),
-                        Text(
-                          controller.charge.value,
-                          style: textTheme.labelLarge,
-                        ),
-                        Text(
-                          ' SYP',
-                          style: textTheme.labelLarge,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    PatientCard(
-                      controller.patientId.value,
-                      controller.patientName.value,
-                      controller.patientPhone.value,
-                      controller.patientSex.value == "Male" ? 1 : 0,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-                NavBar('visit', controller.id.value),
-              ],
-            ),
+                  const SizedBox(height: 20),
+                  GetBuilder<VisitDetailsController>(
+                      builder: (controller) => PatientCard(
+                            controller.patientId,
+                            controller.patientName,
+                            controller.patientPhone,
+                            controller.patientSex == "Male" ? 1 : 0,
+                          )),
+                  const SizedBox(height: 20),
+                ],
+              ),
+              GetBuilder<VisitDetailsController>(
+                  builder: (controller) => NavBar('visit', controller.id)),
+            ],
           ),
         ),
       ),

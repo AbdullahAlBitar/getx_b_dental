@@ -6,8 +6,8 @@ import '../main.dart';
 
 class PatientController extends GetxController {
   var jwt = '';
-  var patients = <Map<String, dynamic>>[].obs;
-  var filteredPatients = <Map<String, dynamic>>[].obs;
+  var patients = <Map<String, dynamic>>[];
+  var filteredPatients = <Map<String, dynamic>>[];
 
   @override
   void onInit() {
@@ -35,6 +35,7 @@ class PatientController extends GetxController {
         final res = jsonDecode(response.body);
         patients.assignAll(List<Map<String, dynamic>>.from(res));
         filteredPatients.assignAll(patients); // Initialize filtered list
+        update();
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);
@@ -47,13 +48,16 @@ class PatientController extends GetxController {
   }
 
   void filterPatients(String query) {
-    final filtered = patients.where((p) {
-      final nameLower = p['name'].toLowerCase();
-      final phoneLower = p['phone'].toLowerCase();
-      final searchLower = query.toLowerCase();
-      return nameLower.contains(searchLower) || phoneLower.contains(searchLower);
-    }).toList();
-
-    filteredPatients.assignAll(filtered);
+    if (query.isEmpty) {
+      filteredPatients = List.from(patients);
+    } else {
+      filteredPatients = patients.where((p) {
+        final nameLower = p['name'].toString().toLowerCase();
+        final phoneLower = p['phone'].toString().toLowerCase();
+        final searchLower = query.toLowerCase();
+        return nameLower.contains(searchLower) || phoneLower.contains(searchLower);
+      }).toList();
+    }
+    update();
   }
 }

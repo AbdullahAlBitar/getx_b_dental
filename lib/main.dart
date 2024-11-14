@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_b_dental/controllers/doctor_controller.dart';
-import 'package:getx_b_dental/controllers/patient_controller.dart';
-import 'package:getx_b_dental/controllers/payment_conrtoller.dart';
-import 'package:getx_b_dental/controllers/visit_controller.dart';
 import 'package:getx_b_dental/middlewares/auth_middleware.dart';
 import 'package:getx_b_dental/pages/auth/login.dart';
 import 'package:getx_b_dental/pages/auth/signup.dart';
@@ -20,16 +16,11 @@ const url = "https://b-dental.onrender.com";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final doctorController = Get.lazyPut(() => DoctorController(), fenix: true);
-  final patientController = Get.lazyPut(() => PatientController(), fenix: true);
-  final paymentController = Get.lazyPut(() => PaymentController(), fenix: true);
-  final visitController = Get.lazyPut(() => VisitController(), fenix: true);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

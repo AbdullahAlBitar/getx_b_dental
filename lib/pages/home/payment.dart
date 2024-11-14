@@ -17,8 +17,7 @@ class Payment extends StatelessWidget {
       floatingActionButton: Container(
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          shape: BoxShape.circle, color: theme.colorScheme.primary
-        ),
+            shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
             Get.toNamed("/paymentUpdate");
@@ -52,19 +51,20 @@ class Payment extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height - 50 - 120,
-                child: Obx(() => SingleChildScrollView(
-                  child: Column(
-                    children: controller.payments
-                        .map((p) => PaymentCard(
-                              p['id'],
-                              p['patient']['name'],
-                              p['Doctor']['name'],
-                              double.parse(p['amount'].toString()),
-                              DateTime.parse(p['date']),
-                            ))
-                        .toList(),
-                  ),
-                )),
+                child: GetBuilder<PaymentController>(
+                    builder: (controller) => SingleChildScrollView(
+                          child: Column(
+                            children: controller.payments
+                                .map((p) => PaymentCard(
+                                      p['id'],
+                                      p['patient']['name'],
+                                      p['Doctor']['name'],
+                                      double.parse(p['amount'].toString()),
+                                      DateTime.parse(p['date']),
+                                    ))
+                                .toList(),
+                          ),
+                        )),
               ),
               const SizedBox(height: 10),
             ],

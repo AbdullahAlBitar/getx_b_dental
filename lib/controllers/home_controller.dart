@@ -7,7 +7,7 @@ import 'package:getx_b_dental/pages/home/payment.dart';
 
 class HomeController extends GetxController {
   // Observable integer for the current index
-  var currentIndex = 0.obs;
+  var currentIndex = 0;
 
   // List of screens that corresponds to each tab
   final List<Widget> screens = [
@@ -19,6 +19,7 @@ class HomeController extends GetxController {
 
   // Function to change the current index
   void changeTabIndex(int index) {
-    currentIndex.value = index;
+    currentIndex = index;
+    update();
   }
 }

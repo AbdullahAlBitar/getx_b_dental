@@ -11,17 +11,19 @@ class AuthController extends GetxController {
   final passwordConfirmTextCont = TextEditingController();
   final nameTextCont = TextEditingController();
 
-  final isLoading = false.obs;
+  var isLoading = false;
 
   Future<void> login() async {
-    isLoading.value = true;
+    isLoading = true;
+    update();
 
     if (phoneTextCont.text.isEmpty || passwordTextCont.text.isEmpty) {
       Get.snackbar(
         "Error",
         "Phone & Password are required",
       );
-      isLoading.value = false;
+      isLoading = false;
+      update();
       return;
     }
 
@@ -72,7 +74,8 @@ class AuthController extends GetxController {
         "Network error. Please try again later.",
       );
     } finally {
-      isLoading.value = false;
+      isLoading = false;
+      update();
     }
   }
 }

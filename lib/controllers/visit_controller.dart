@@ -5,7 +5,7 @@ import 'dart:convert';
 
 class VisitController extends GetxController {
   var jwt = '';
-  var visits = <Map<String, dynamic>>[].obs;
+  var visits = <Map<String, dynamic>>[];
 
   @override
   void onInit() {
@@ -32,6 +32,7 @@ class VisitController extends GetxController {
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
         visits.assignAll(List<Map<String, dynamic>>.from(res));
+        update();
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);

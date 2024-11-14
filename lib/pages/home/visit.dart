@@ -12,13 +12,12 @@ class Visit extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    
+
     return Scaffold(
       floatingActionButton: Container(
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          shape: BoxShape.circle, color: theme.colorScheme.primary
-        ),
+            shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
             // Add navigation to create a new visit
@@ -52,18 +51,19 @@ class Visit extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height - 50 - 120,
-                child: Obx(() => SingleChildScrollView(
-                  child: Column(
-                    children: controller.visits
-                        .map((v) => VisitCard(
-                              v['id'],
-                              v['name'],
-                              double.parse(v['charge'].toString()),
-                              DateTime.parse(v['date']),
-                            ))
-                        .toList(),
-                  ),
-                )),
+                child: GetBuilder<VisitController>(
+                    builder: (controller) => SingleChildScrollView(
+                          child: Column(
+                            children: controller.visits
+                                .map((v) => VisitCard(
+                                      v['id'],
+                                      v['name'],
+                                      double.parse(v['charge'].toString()),
+                                      DateTime.parse(v['date']),
+                                    ))
+                                .toList(),
+                          ),
+                        )),
               ),
               const SizedBox(height: 10),
             ],

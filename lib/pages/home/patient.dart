@@ -18,8 +18,7 @@ class Patient extends StatelessWidget {
       floatingActionButton: Container(
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          shape: BoxShape.circle, color: theme.colorScheme.primary
-        ),
+            shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
             Get.toNamed("/patientUpdate");
@@ -56,13 +55,15 @@ class Patient extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Search by name or phone',
                   labelStyle: textTheme.labelMedium,
-                  prefixIcon: Icon(Icons.search , color: theme.colorScheme.secondary,),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: theme.colorScheme.secondary,
+                  ),
                   filled: true,
                   fillColor: theme.colorScheme.surface,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(
-                    color: theme.colorScheme.secondary
-                  )
-                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: theme.colorScheme.secondary)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -76,18 +77,19 @@ class Patient extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height - 50 - 170,
-                child: Obx(() => SingleChildScrollView(
-                  child: Column(
-                    children: controller.filteredPatients
-                        .map((p) => PatientCard(
-                              p['id'],
-                              p['name'],
-                              p['phone'],
-                              p['sex'] == "Male" ? 1 : 0,
-                            ))
-                        .toList(),
-                  ),
-                )),
+                child: GetBuilder<PatientController>(
+                    builder: (controller) => SingleChildScrollView(
+                          child: Column(
+                            children: controller.filteredPatients
+                                .map((p) => PatientCard(
+                                      p['id'],
+                                      p['name'],
+                                      p['phone'],
+                                      p['sex'] == "Male" ? 1 : 0,
+                                    ))
+                                .toList(),
+                          ),
+                        )),
               ),
               const SizedBox(height: 10),
             ],

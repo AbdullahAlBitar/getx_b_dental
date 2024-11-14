@@ -5,21 +5,21 @@ import 'dart:convert';
 
 class PaymentDetailsController extends GetxController {
   var jwt = '';
-  var id = 0.obs;
-  var amount = ''.obs;
-  var date = '             '.obs;
-  var doctorName = ''.obs;
-  var patientId = 0.obs;
-  var patientName = ''.obs;
-  var patientSex = ''.obs;
-  var patientPhone = ''.obs;
+  var id = 0;
+  var amount = '';
+  var date = '             ';
+  var doctorName = '';
+  var patientId = 0;
+  var patientName = '';
+  var patientSex = '';
+  var patientPhone = '';
 
   @override
   void onInit() {
     super.onInit();
     final paymentId = Get.arguments as int?;
     if (paymentId != null) {
-      id.value = paymentId;
+      id = paymentId;
       getInfo();
     }
   }
@@ -33,7 +33,7 @@ class PaymentDetailsController extends GetxController {
 
     try {
       final response = await http.get(
-        Uri.parse('$url/payments/profile/${id.value}'),
+        Uri.parse('$url/payments/profile/$id'),
         headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $jwt'
@@ -42,13 +42,14 @@ class PaymentDetailsController extends GetxController {
 
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
-        amount.value = res['amount'].toString().split('.')[0]; // Remove decimals
-        date.value = res['date'];
-        doctorName.value = res['doctor_name'];
-        patientId.value = res['patient_id'];
-        patientName.value = res['patient_name'];
-        patientSex.value = res['patient_sex'];
-        patientPhone.value = res['patient_phone'];
+        amount = res['amount'].toString().split('.')[0]; // Remove decimals
+        date = res['date'];
+        doctorName = res['doctor_name'];
+        patientId = res['patient_id'];
+        patientName = res['patient_name'];
+        patientSex = res['patient_sex'];
+        patientPhone = res['patient_phone'];
+        update();
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res["error"]);

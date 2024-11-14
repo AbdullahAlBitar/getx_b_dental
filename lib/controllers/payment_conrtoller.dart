@@ -6,7 +6,7 @@ import '../main.dart';
 
 class PaymentController extends GetxController {
   var jwt = '';
-  var payments = <Map<String, dynamic>>[].obs;
+  var payments = <Map<String, dynamic>>[];
 
   @override
   void onInit() {
@@ -33,6 +33,7 @@ class PaymentController extends GetxController {
       if (response.statusCode == 200) {
         final res = jsonDecode(response.body);
         payments.assignAll(List<Map<String, dynamic>>.from(res));
+        update();
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);

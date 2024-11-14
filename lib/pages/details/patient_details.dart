@@ -8,7 +8,8 @@ import 'package:getx_b_dental/pages/cards/visit_card.dart';
 class PatientDetails extends StatelessWidget {
   PatientDetails({super.key});
 
-  final PatientDetailsController controller = Get.put(PatientDetailsController());
+  final PatientDetailsController controller =
+      Get.put(PatientDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +31,36 @@ class PatientDetails extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() => Row(
-                        children: [
-                          Icon(
-                            controller.sex.value == "Male" ? Icons.person : Icons.person_2,
-                            color: controller.sex.value == "Male" ? Colors.blue : Colors.pink,
-                            size: 30,
-                          ),
-                          Text(
-                            controller.name.value,
-                            style: textTheme.titleMedium,
-                          ),
-                        ],
-                      )),
+                      GetBuilder<PatientDetailsController>(
+                          builder: (controller) => Row(
+                                children: [
+                                  Icon(
+                                    controller.sex == "Male"
+                                        ? Icons.person
+                                        : Icons.person_2,
+                                    color: controller.sex == "Male"
+                                        ? Colors.blue
+                                        : Colors.pink,
+                                    size: 30,
+                                  ),
+                                  Text(
+                                    controller.name,
+                                    style: textTheme.titleMedium,
+                                  ),
+                                ],
+                              )),
                       const SizedBox(height: 10),
-                      Obx(() => Text(
-                        controller.phone.value,
-                        style: textTheme.titleSmall,
-                      )),
+                      GetBuilder<PatientDetailsController>(
+                          builder: (controller) => Text(
+                                controller.phone,
+                                style: textTheme.titleSmall,
+                              )),
                     ],
                   ),
                   IconButton(
                     onPressed: () {
-                      Get.toNamed("/patientUpdate", arguments: {'id': controller.id.value});
+                      Get.toNamed("/patientUpdate",
+                          arguments: {'id': controller.id});
                     },
                     icon: const Icon(
                       Icons.edit_note_rounded,
@@ -65,22 +73,23 @@ class PatientDetails extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Obx(() => Row(
+                  Row(
                     children: [
                       Text(
                         'Dues: ',
                         style: textTheme.titleSmall,
                       ),
-                      Text(
-                        controller.dues.value,
-                        style: textTheme.labelLarge,
-                      ),
+                      GetBuilder<PatientDetailsController>(
+                          builder: (controller) => Text(
+                                controller.dues,
+                                style: textTheme.labelLarge,
+                              )),
                       Text(
                         ' SYP',
                         style: textTheme.labelLarge,
                       ),
                     ],
-                  )),
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,19 +115,22 @@ class PatientDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  buildListContainer(
-                    theme.colorScheme.surface,
-                    controller.visits.map((v) => VisitCard(
-                      v['id'],
-                      v['name'],
-                      double.parse(v['charge'].toString()),
-                      DateTime.parse(v['date']),
-                    )).toList(),
-                  ),
+                  GetBuilder<PatientDetailsController>(
+                      builder: (controller) => buildListContainer(
+                            theme.colorScheme.surface,
+                            controller.visits
+                                .map((v) => VisitCard(
+                                      v['id'],
+                                      v['name'],
+                                      double.parse(v['charge'].toString()),
+                                      DateTime.parse(v['date']),
+                                    ))
+                                .toList(),
+                          )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildSectionTitle("Payments:" , textTheme.titleSmall),
+                      buildSectionTitle("Payments:", textTheme.titleSmall),
                       IconButton(
                         onPressed: () {
                           // Navigator.pushNamed(
@@ -139,20 +151,24 @@ class PatientDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  buildListContainer(
-                    theme.colorScheme.surface,
-                    controller.payments.map((p) => PaymentCard(
-                      p['id'],
-                      controller.name.value,
-                      p['Doctor']['name'],
-                      double.parse(p['amount'].toString()),
-                      DateTime.parse(p['date']),
-                    )).toList(),
-                  ),
+                  GetBuilder<PatientDetailsController>(
+                      builder: (controller) => buildListContainer(
+                            theme.colorScheme.surface,
+                            controller.payments
+                                .map((p) => PaymentCard(
+                                      p['id'],
+                                      controller.name,
+                                      p['Doctor']['name'],
+                                      double.parse(p['amount'].toString()),
+                                      DateTime.parse(p['date']),
+                                    ))
+                                .toList(),
+                          )),
                 ],
               ),
               const SizedBox(height: 20),
-              NavBar('patient', controller.id.value),
+              GetBuilder<PatientDetailsController>(
+                  builder: (controller) => NavBar('patient', controller.id)),
             ],
           ),
         ),
