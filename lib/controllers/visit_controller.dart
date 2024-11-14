@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class VisitController extends GetxController {
-  var jwt = ''.obs;
+  var jwt = '';
   var visits = <Map<String, dynamic>>[].obs;
 
   @override
@@ -14,8 +14,8 @@ class VisitController extends GetxController {
   }
 
   Future<void> getInfo() async {
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
-    if (jwt.value.isEmpty) {
+    jwt = sharedPreferences!.getString('jwt') ?? '';
+    if (jwt.isEmpty) {
       Get.offAllNamed("/"); // Navigate to login if JWT is missing
       return;
     }
@@ -25,7 +25,7 @@ class VisitController extends GetxController {
         Uri.parse('$url/visits/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${jwt.value}',
+          'Authorization': 'Bearer $jwt',
         },
       );
 

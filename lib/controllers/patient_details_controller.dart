@@ -5,7 +5,7 @@ import 'dart:convert';
 import '../main.dart';
 
 class PatientDetailsController extends GetxController {
-  var jwt = ''.obs;
+  var jwt = '';
   var id = 0.obs;
   var name = ''.obs;
   var phone = ''.obs;
@@ -25,7 +25,7 @@ class PatientDetailsController extends GetxController {
   }
 
   Future<void> getInfo() async {
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
+    jwt = sharedPreferences!.getString('jwt') ?? '';
     if (jwt.isEmpty) {
       Get.offAllNamed("/");
       return;
@@ -36,7 +36,7 @@ class PatientDetailsController extends GetxController {
         Uri.parse('$url/patients/profile/${id.value}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${jwt.value}',
+          'Authorization': 'Bearer $jwt',
         },
       );
 

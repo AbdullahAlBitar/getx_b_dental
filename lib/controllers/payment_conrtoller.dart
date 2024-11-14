@@ -5,7 +5,7 @@ import 'dart:convert';
 import '../main.dart';
 
 class PaymentController extends GetxController {
-  var jwt = ''.obs;
+  var jwt = '';
   var payments = <Map<String, dynamic>>[].obs;
 
   @override
@@ -15,8 +15,8 @@ class PaymentController extends GetxController {
   }
 
   Future<void> getInfo() async {
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
-    if (jwt.value.isEmpty) {
+    jwt = sharedPreferences!.getString('jwt') ?? '';
+    if (jwt.isEmpty) {
       Get.offAllNamed("/"); // Navigate to login if JWT is missing
       return;
     }
@@ -26,7 +26,7 @@ class PaymentController extends GetxController {
         Uri.parse('$url/payments/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${jwt.value}',
+          'Authorization': 'Bearer $jwt',
         },
       );
 

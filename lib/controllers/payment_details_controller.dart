@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PaymentDetailsController extends GetxController {
-  var jwt = ''.obs;
+  var jwt = '';
   var id = 0.obs;
   var amount = ''.obs;
   var date = '             '.obs;
@@ -25,7 +25,7 @@ class PaymentDetailsController extends GetxController {
   }
 
   Future<void> getInfo() async {
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
+    jwt = sharedPreferences!.getString('jwt') ?? '';
     if (jwt.isEmpty) {
       Get.offAllNamed("/");
       return;
@@ -36,7 +36,7 @@ class PaymentDetailsController extends GetxController {
         Uri.parse('$url/payments/profile/${id.value}'),
         headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${jwt.value}'
+        'Authorization': 'Bearer $jwt'
         },
       );
 

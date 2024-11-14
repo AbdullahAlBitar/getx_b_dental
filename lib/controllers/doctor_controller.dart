@@ -5,7 +5,6 @@ import '../main.dart';
 
 
 class DoctorController extends GetxController {
-  var jwt = ''.obs;
   var name = ''.obs;
   var phone = ''.obs;
   var dues = ''.obs;
@@ -19,9 +18,9 @@ class DoctorController extends GetxController {
 
   Future<void> getUserInfo() async {
 
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
+    String jwt = sharedPreferences!.getString('jwt') ?? '';
 
-    if (jwt.value.isEmpty) {
+    if (jwt.isEmpty) {
       Get.offAllNamed("/"); // Navigate to login if JWT is missing
       return;
     }
@@ -31,7 +30,7 @@ class DoctorController extends GetxController {
         Uri.parse('$url/doctors/profile'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${jwt.value}'
+          'Authorization': 'Bearer $jwt'
         },
       );
 

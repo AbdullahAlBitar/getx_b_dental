@@ -5,7 +5,7 @@ import 'dart:convert';
 import '../main.dart';
 
 class PatientController extends GetxController {
-  var jwt = ''.obs;
+  var jwt = '';
   var patients = <Map<String, dynamic>>[].obs;
   var filteredPatients = <Map<String, dynamic>>[].obs;
 
@@ -16,8 +16,8 @@ class PatientController extends GetxController {
   }
 
   Future<void> getInfo() async {
-    jwt.value = sharedPreferences!.getString('jwt') ?? '';
-    if (jwt.value.isEmpty) {
+    jwt = sharedPreferences!.getString('jwt') ?? '';
+    if (jwt.isEmpty) {
       Get.offAllNamed("/"); // Navigate to login if JWT is missing
       return;
     }
@@ -27,7 +27,7 @@ class PatientController extends GetxController {
         Uri.parse('$url/patients/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${jwt.value}',
+          'Authorization': 'Bearer $jwt',
         },
       );
 
