@@ -59,7 +59,7 @@ class PatientDetails extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      Get.toNamed("/patientUpdate",
+                      Get.toNamed("/patientCreate",
                           arguments: {'id': controller.id});
                     },
                     icon: const Icon(

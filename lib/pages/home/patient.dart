@@ -21,7 +21,7 @@ class Patient extends StatelessWidget {
             shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
-            Get.toNamed("/patientUpdate");
+            Get.toNamed("/patientCreate");
           },
           icon: const Icon(
             Icons.person_add_alt_outlined,

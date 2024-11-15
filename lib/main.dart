@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_b_dental/middlewares/auth_middleware.dart';
 import 'package:getx_b_dental/pages/auth/login.dart';
 import 'package:getx_b_dental/pages/auth/signup.dart';
+import 'package:getx_b_dental/pages/creates/patient_create.dart';
 import 'package:getx_b_dental/pages/details/patient_details.dart';
 import 'package:getx_b_dental/pages/details/payment_details.dart';
 import 'package:getx_b_dental/pages/details/visit_details.dart';
@@ -11,6 +12,7 @@ import 'package:getx_b_dental/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPreferences;
+// const url = "http://192.168.1.17:3000";
 const url = "https://b-dental.onrender.com";
 
 void main() async {
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/patientDetails", page: () => PatientDetails()),
         GetPage(name: "/paymentDetails", page: () => PaymentDetails()),
         GetPage(name: "/visitDetails", page: () => VisitDetails()),
+        GetPage(name: "/patientCreate", page: () => PatientCreate()),
       ],
       debugShowCheckedModeBanner: false,
     );

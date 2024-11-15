@@ -43,7 +43,7 @@ class DoctorController extends GetxController {
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar("Error", res['error']);
-        sharedPreferences!.setBool('login', true);
+        sharedPreferences!.clear();
         Get.offAllNamed("/");
       }
     } catch (e) {
