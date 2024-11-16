@@ -58,9 +58,7 @@ class PatientDetailsController extends GetxController {
         Get.snackbar("Error", res['error']);
         Get.offAllNamed("/");
       }
-    } catch (e, stackTrace) {
-      print('Error details: $e');
-      print('Stack trace: $stackTrace');
+    } catch (e) {
       Get.snackbar("Network Error", 'Please try again later.');
     }  }
 
