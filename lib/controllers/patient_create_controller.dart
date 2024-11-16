@@ -31,7 +31,7 @@ class PatientCreateController extends GetxController {
 
   @override
   void onInit() {
-    patientId = Get.arguments['id'];
+    patientId = Get.arguments?['id'];
     fetchPatientDetails();
     super.onInit();
   }

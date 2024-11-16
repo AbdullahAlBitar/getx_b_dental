@@ -73,9 +73,9 @@ class PatientDetails extends StatelessWidget {
                       ),
                       GetBuilder<PatientDetailsController>(
                         builder: (controller) => Text(
-                            controller.birthdate,
-                            style: textTheme.labelSmall,
-                          ),
+                          controller.birthdate,
+                          style: textTheme.labelSmall,
+                        ),
                       ),
                     ],
                   ),
@@ -111,7 +111,7 @@ class PatientDetails extends StatelessWidget {
                         onPressed: () {
                           // Navigator.pushNamed(
                           //   context,
-                          //   "/paymentUpdate",
+                          //   "/paymentCreate",
                           //   arguments: {
                           //     'patientId': id,
                           //     'patient_name': name,
@@ -145,16 +145,15 @@ class PatientDetails extends StatelessWidget {
                       buildSectionTitle("Payments:", textTheme.titleSmall),
                       IconButton(
                         onPressed: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   "/paymentUpdate",
-                          //   arguments: {
-                          //     'patientId': id,
-                          //     'patient_name': name,
-                          //     'patient_phone': phone,
-                          //     'patient_sex': sex,
-                          //   },
-                          // );
+                          Get.toNamed(
+                            "/paymentCreate",
+                            arguments: {
+                              'patientId': controller.id,
+                              'patient_name': controller.name,
+                              'patient_phone': controller.phone,
+                              'patient_sex': controller.sex,
+                            },
+                          );
                         },
                         icon: const Icon(
                           Icons.monetization_on_outlined,

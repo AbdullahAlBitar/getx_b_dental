@@ -20,7 +20,7 @@ class Payment extends StatelessWidget {
             shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
-            Get.toNamed("/paymentUpdate");
+            Get.toNamed("/paymentCreate");
           },
           icon: const Icon(
             Icons.attach_money,

@@ -44,7 +44,7 @@ class PaymentDetails extends StatelessWidget {
                     GetBuilder<PaymentDetailsController>(
                         builder: (controller) => IconButton(
                               onPressed: () {
-                                Get.toNamed("/paymentUpdate", arguments: {
+                                Get.toNamed("/paymentCreate", arguments: {
                                   'id': controller.id,
                                   'patientId': controller.patientId
                                 });
