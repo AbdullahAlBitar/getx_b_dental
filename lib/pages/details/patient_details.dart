@@ -57,15 +57,27 @@ class PatientDetails extends StatelessWidget {
                               )),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Get.toNamed("/patientCreate",
-                          arguments: {'id': controller.id});
-                    },
-                    icon: const Icon(
-                      Icons.edit_note_rounded,
-                      size: 36,
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.toNamed("/patientCreate",
+                              arguments: {'id': controller.id});
+                        },
+                        icon: const Icon(
+                          Icons.edit_note_rounded,
+                          size: 36,
+                        ),
+                      ),
+                      GetBuilder<PatientDetailsController>(
+                        builder: (controller) => Text(
+                            controller.birthdate,
+                            style: textTheme.labelSmall,
+                          ),
+                      ),
+                    ],
                   ),
                 ],
               ),

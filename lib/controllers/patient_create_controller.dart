@@ -29,6 +29,13 @@ class PatientCreateController extends GetxController {
     update(['loading_title']);
   }
 
+  @override
+  void onInit() {
+    patientId = Get.arguments['id'];
+    fetchPatientDetails();
+    super.onInit();
+  }
+
   Future<void> fetchPatientDetails() async {
     if (patientId == null) return;
 
@@ -64,6 +71,7 @@ class PatientCreateController extends GetxController {
 
     isLoading = false;
     update();
+    update(['birthdate', 'sex', 'loading_title']);
   }
 
   Future<void> createOrUpdatePatient() async {
@@ -85,12 +93,7 @@ class PatientCreateController extends GetxController {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $jwt',
       };
-      final body = jsonEncode({
-        'name': nameTextCont.text,
-        'phone': phoneTextCont.text,
-        'birth': selectedBirthdate!.toIso8601String(),
-        'sex': selectedSex,
-      });
+
       final uri = patientId == null
           ? Uri.parse('$url/patients')
           : Uri.parse('$url/patients/$patientId');
@@ -100,13 +103,22 @@ class PatientCreateController extends GetxController {
         response = await http.post(
           uri,
           headers: headers,
-          body: body,
+          body: jsonEncode({
+            'name': nameTextCont.text,
+            'phone': phoneTextCont.text,
+            'birth': selectedBirthdate!.toIso8601String(),
+            'sex': selectedSex,
+          }),
         );
       } else {
         response = await http.patch(
           uri,
           headers: headers,
-          body: body,
+          body: jsonEncode({
+            'name': nameTextCont.text,
+            'birth': selectedBirthdate!.toIso8601String(),
+            'sex': selectedSex,
+          }),
         );
       }
 

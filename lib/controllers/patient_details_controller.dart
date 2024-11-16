@@ -11,6 +11,7 @@ class PatientDetailsController extends GetxController {
   var phone = '';
   var sex = '';
   var dues = '';
+  var birthdate = '';
   var visits = <Map<String, dynamic>>[];
   var payments = <Map<String, dynamic>>[];
 
@@ -48,6 +49,7 @@ class PatientDetailsController extends GetxController {
         phone = res['phone'];
         sex = res['sex'];
         dues = res['dues'].toString().split('.')[0]; // Remove decimal
+        birthdate = (DateTime.parse(res['birth']).toString().split(' ')[0]);
         visits.assignAll(List<Map<String, dynamic>>.from(res['visits']));
         payments.assignAll(List<Map<String, dynamic>>.from(res['payments']));
         update();
@@ -56,10 +58,11 @@ class PatientDetailsController extends GetxController {
         Get.snackbar("Error", res['error']);
         Get.offAllNamed("/");
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print('Error details: $e');
+      print('Stack trace: $stackTrace');
       Get.snackbar("Network Error", 'Please try again later.');
-    }
-  }
+    }  }
 
   Future<void> logOut() async {
     sharedPreferences!.remove("login");
