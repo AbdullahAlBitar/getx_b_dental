@@ -33,7 +33,12 @@ class VisitDetails extends StatelessWidget {
                               style: textTheme.titleSmall,
                             )),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/visitCreate", arguments: {
+                          'id': controller.id,
+                          'patientId': controller.patientId
+                        });
+                      },
                       icon: const Icon(
                         Icons.edit_note_rounded,
                         size: 36,

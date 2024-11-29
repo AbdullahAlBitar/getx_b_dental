@@ -20,7 +20,7 @@ class Visit extends StatelessWidget {
             shape: BoxShape.circle, color: theme.colorScheme.primary),
         child: IconButton(
           onPressed: () {
-            // Add navigation to create a new visit
+            Get.toNamed("/visitCreate");
           },
           icon: const Icon(
             Icons.add_circle_outline_sharp,

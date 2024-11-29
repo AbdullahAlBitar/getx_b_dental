@@ -6,6 +6,8 @@ import 'dart:convert';
 
 class PaymentCreateController extends GetxController {
   final amountTextCont = TextEditingController();
+  final phoneTextCont = TextEditingController();
+
   DateTime? selectedDate;
   bool isLoading = false;
   String jwt = "";
@@ -66,7 +68,6 @@ class PaymentCreateController extends GetxController {
         patientPhone = data['patient_phone'];
         amountTextCont.text = data['amount'].toString();
         selectedDate = DateTime.parse(data['date']);
-
       } else {
         Get.snackbar('Error', 'Failed to fetch payment details');
         Get.back();
@@ -82,7 +83,7 @@ class PaymentCreateController extends GetxController {
   }
 
   Future<void> createOrUpdatePayment() async {
-    if (patientId == null ||
+    if ((patientId == null && phoneTextCont.text.isEmpty) ||
         amountTextCont.text.isEmpty ||
         selectedDate == null) {
       Get.snackbar('Error', 'All fields are required');
@@ -96,29 +97,49 @@ class PaymentCreateController extends GetxController {
 
     try {
       final uri = paymentId == null
-          ? Uri.parse('$url/payments/create')
-          : Uri.parse('$url/payments/update/$paymentId');
+          ? Uri.parse('$url/payments/')
+          : Uri.parse('$url/payments/$paymentId');
 
-      final response = await http.post(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $jwt',
-        },
-        body: jsonEncode({
-          'patient_id': patientId,
-          'amount': double.parse(amountTextCont.text),
-          'date': selectedDate!.toIso8601String().split('T')[0],
-        }),
-      );
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $jwt',
+      };
+
+      http.Response response;
+
+      Map<String, dynamic> requestBody = {
+        if (patientId != null) 'patient_id': patientId,
+        if (phoneTextCont.text.isNotEmpty) 'phone': phoneTextCont.text,
+        'amount': double.parse(amountTextCont.text),
+        'date': selectedDate!.toIso8601String().split('T')[0],
+      };
+
+      if (paymentId == null) {
+        response = await http.post(
+          uri,
+          headers: headers,
+          body: jsonEncode(requestBody),
+        );
+      } else {
+        response = await http.patch(
+          uri,
+          headers: headers,
+          body: jsonEncode({
+            // 'patient_id': patientId,
+            'amount': double.parse(amountTextCont.text),
+            'date': selectedDate!.toIso8601String().split('T')[0],
+          }),
+        );
+      }
 
       if (response.statusCode == 201 || response.statusCode == 200) {
+        // Get.back();
         Get.snackbar(
             'Success',
             paymentId == null
                 ? 'Payment created successfully'
                 : 'Payment updated successfully');
-        Get.back();
+        Get.offNamedUntil("/home", (route) => route.settings.name == '/');
       } else {
         final res = jsonDecode(response.body);
         Get.snackbar('Error', res['error']);

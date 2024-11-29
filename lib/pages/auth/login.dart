@@ -6,6 +6,8 @@ class Login extends StatelessWidget {
   Login({super.key});
 
   final AuthController controller = Get.put(AuthController());
+  final FocusNode phoneFocus = FocusNode(); // FocusNode for the phone field
+  final FocusNode passwordFocus = FocusNode(); // FocusNode for the password field
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +25,34 @@ class Login extends StatelessWidget {
               style: textTheme.titleLarge,
             ),
             const SizedBox(height: 40),
+            // Phone TextField
             TextField(
+              keyboardType: TextInputType.number,
               style: textTheme.labelMedium,
               controller: controller.phoneTextCont,
+              focusNode: phoneFocus,
+              textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 hintText: "Phone",
               ),
+              onSubmitted: (_) {
+                FocusScope.of(context).requestFocus(passwordFocus);
+              },
             ),
             const SizedBox(height: 20),
+            // Password TextField
             TextField(
               style: textTheme.labelMedium,
               controller: controller.passwordTextCont,
+              focusNode: passwordFocus,
               obscureText: true,
+              textInputAction: TextInputAction.done,
               decoration: const InputDecoration(
                 hintText: "Password",
               ),
+              onSubmitted: (_) async {
+                await controller.login(); // Trigger login on "Done"
+              },
             ),
             const SizedBox(height: 20),
             Row(

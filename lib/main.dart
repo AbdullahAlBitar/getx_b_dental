@@ -5,6 +5,7 @@ import 'package:getx_b_dental/pages/auth/login.dart';
 import 'package:getx_b_dental/pages/auth/signup.dart';
 import 'package:getx_b_dental/pages/creates/patient_create.dart';
 import 'package:getx_b_dental/pages/creates/payment_create.dart';
+import 'package:getx_b_dental/pages/creates/visit_create.dart';
 import 'package:getx_b_dental/pages/details/patient_details.dart';
 import 'package:getx_b_dental/pages/details/payment_details.dart';
 import 'package:getx_b_dental/pages/details/visit_details.dart';
@@ -13,8 +14,9 @@ import 'package:getx_b_dental/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPreferences;
-// const url = "http://192.168.1.17:3000";
-const url = "https://b-dental.onrender.com";
+const url = "http://192.168.1.17:3000";
+// const url = "http://192.168.137.1:3000";
+// const url = "https://b-dental.onrender.com";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/visitDetails", page: () => VisitDetails()),
         GetPage(name: "/patientCreate", page: () => PatientCreate()),
         GetPage(name: "/paymentCreate", page: () => PaymentCreate()),
+        GetPage(name: "/visitCreate", page: () => VisitCreate()),
       ],
       debugShowCheckedModeBanner: false,
     );

@@ -7,6 +7,8 @@ class PaymentCreate extends StatelessWidget {
   PaymentCreate({super.key});
 
   final PaymentCreateController controller = Get.put(PaymentCreateController());
+  final FocusNode phoneFocus = FocusNode(); 
+  final FocusNode amountFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,24 @@ class PaymentCreate extends StatelessWidget {
                       controller.patientName,
                       controller.patientPhone,
                       controller.patientSex == "Male" ? 1 : 0)
-                  : const SizedBox(),
+                  : TextField(
+              keyboardType: TextInputType.number,
+              style: textTheme.labelMedium,
+              controller: controller.phoneTextCont,
+              focusNode: phoneFocus,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                hintText: "Phone",
+              ),
+              onSubmitted: (_) {
+                FocusScope.of(context).requestFocus(amountFocus);
+              },
+            ),
             ),
             const SizedBox(height: 20),
             GetBuilder<PaymentCreateController>(
                 builder: (controller) => TextField(
+                      focusNode: amountFocus,
                       style: textTheme.labelMedium,
                       controller: controller.amountTextCont,
                       keyboardType: TextInputType.number,

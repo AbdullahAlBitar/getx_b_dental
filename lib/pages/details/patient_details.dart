@@ -109,16 +109,15 @@ class PatientDetails extends StatelessWidget {
                       buildSectionTitle("Visits:", textTheme.titleSmall),
                       IconButton(
                         onPressed: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   "/paymentCreate",
-                          //   arguments: {
-                          //     'patientId': id,
-                          //     'patient_name': name,
-                          //     'patient_phone': phone,
-                          //     'patient_sex': sex,
-                          //   },
-                          // );
+                          Get.toNamed(
+                            "/visitCreate",
+                            arguments: {
+                              'patientId': controller.id,
+                              'patient_name': controller.name,
+                              'patient_phone': controller.phone,
+                              'patient_sex': controller.sex,
+                            },
+                          );
                         },
                         icon: const Icon(
                           Icons.add_circle_outline_sharp,
