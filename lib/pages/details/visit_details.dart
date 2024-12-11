@@ -63,7 +63,7 @@ class VisitDetails extends StatelessWidget {
                   buildSectionTitle("CasePhotos:", textTheme.titleSmall),
                   IconButton(
                     onPressed: () {
-                      controller.uploadCasePhoto("IntraOral");
+                      controller.uploadCasePhoto();
                     },
                     icon: const Icon(
                       Icons.add_circle_outline_sharp,
@@ -78,9 +78,10 @@ class VisitDetails extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: controller.casePhotos
                     .map((cp) =>
-                        ImageCard( id: cp['id'],date: cp['date'], imageUrl: cp['imageUrl'],))
+                        ImageCard( id: cp['id'],date: cp['date'], imageUrl: cp['imageUrl'], type: cp['type'],))
                     .toList(),
               )),
+              const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
