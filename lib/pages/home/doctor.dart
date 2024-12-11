@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/doctor_controller.dart';
 import 'package:getx_b_dental/pages/cards/visit_card.dart';
+import 'package:getx_b_dental/pages/widgets/card_scroller.dart';
 
 class Doctor extends StatelessWidget {
   Doctor({super.key});
@@ -86,26 +87,16 @@ class Doctor extends StatelessWidget {
                     style: textTheme.titleSmall,
                   ),
                   const SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    height: 200,
-                    child: GetBuilder<DoctorController>(
-                        builder: (controller) => SingleChildScrollView(
-                              child: Column(
-                                children: controller.visits
-                                    .map((v) => VisitCard(
-                                        v['id'],
-                                        v['name'],
-                                        double.parse(v['charge'].toString()),
-                                        DateTime.parse(v['date'])))
-                                    .toList(),
-                              ),
-                            )),
-                  ),
+                  GetBuilder<DoctorController>(
+                      builder: (controller) => CardScroller(
+                            children: controller.visits
+                                .map((v) => VisitCard(
+                                    v['id'],
+                                    v['name'],
+                                    double.parse(v['charge'].toString()),
+                                    DateTime.parse(v['date'])))
+                                .toList(),
+                          )),
                 ],
               ),
               const SizedBox(height: 10),

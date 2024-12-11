@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/patient_details_controller.dart';
+import 'package:getx_b_dental/pages/widgets/card_scroller.dart';
 import 'package:getx_b_dental/pages/widgets/nav_bar.dart';
 import 'package:getx_b_dental/pages/cards/payment_card.dart';
 import 'package:getx_b_dental/pages/cards/visit_card.dart';
@@ -127,9 +128,8 @@ class PatientDetails extends StatelessWidget {
                     ],
                   ),
                   GetBuilder<PatientDetailsController>(
-                      builder: (controller) => buildListContainer(
-                            theme.colorScheme.surface,
-                            controller.visits
+                      builder: (controller) => CardScroller(
+                            children: controller.visits
                                 .map((v) => VisitCard(
                                       v['id'],
                                       v['name'],
@@ -162,9 +162,7 @@ class PatientDetails extends StatelessWidget {
                     ],
                   ),
                   GetBuilder<PatientDetailsController>(
-                      builder: (controller) => buildListContainer(
-                            theme.colorScheme.surface,
-                            controller.payments
+                      builder: (controller) => CardScroller(children: controller.payments
                                 .map((p) => PaymentCard(
                                       p['id'],
                                       controller.name,
@@ -172,8 +170,7 @@ class PatientDetails extends StatelessWidget {
                                       double.parse(p['amount'].toString()),
                                       DateTime.parse(p['date']),
                                     ))
-                                .toList(),
-                          )),
+                                .toList(),)),
                 ],
               ),
               const SizedBox(height: 20),

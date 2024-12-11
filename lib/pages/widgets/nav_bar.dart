@@ -5,8 +5,6 @@ class NavBar extends StatelessWidget {
   final String page;
   final int id;
 
-
-
   const NavBar(this.page, this.id, {super.key});
 
   @override

@@ -25,7 +25,7 @@ class ImageCard extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.vertical(
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(10.0),
                   ),
                   child: Image.network(
@@ -41,11 +41,11 @@ class ImageCard extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.fullscreen, color: Colors.white),
+                        icon: const Icon(Icons.fullscreen, color: Colors.white),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete, color: Colors.white),
+                        icon: const Icon(Icons.delete, color: Colors.white),
                         onPressed: () {},
                       ),
                     ],

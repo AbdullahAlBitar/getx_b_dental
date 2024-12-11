@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/patient_controller.dart';
 import 'package:getx_b_dental/pages/cards/patient_card.dart';
+import 'package:getx_b_dental/pages/widgets/card_scroller.dart';
 
 class Patient extends StatelessWidget {
   Patient({super.key});
@@ -70,27 +71,18 @@ class Patient extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                padding: const EdgeInsets.all(10),
-                height: MediaQuery.of(context).size.height - 50 - 170,
-                child: GetBuilder<PatientController>(
-                    builder: (controller) => SingleChildScrollView(
-                          child: Column(
-                            children: controller.filteredPatients
-                                .map((p) => PatientCard(
-                                      p['id'],
-                                      p['name'],
-                                      p['phone'],
-                                      p['sex'] == "Male" ? 1 : 0,
-                                    ))
-                                .toList(),
-                          ),
-                        )),
-              ),
+              GetBuilder<PatientController>(
+                  builder: (controller) => CardScroller(
+                        height: MediaQuery.of(context).size.height - 50 - 170,
+                        children: controller.filteredPatients
+                            .map((p) => PatientCard(
+                                  p['id'],
+                                  p['name'],
+                                  p['phone'],
+                                  p['sex'] == "Male" ? 1 : 0,
+                                ))
+                            .toList(),
+                      )),
               const SizedBox(height: 10),
             ],
           ),
