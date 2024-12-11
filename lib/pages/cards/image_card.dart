@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class ImageCard extends StatelessWidget {
   final String imageUrl;
   final int id;
+  final String date;
 
   const ImageCard({
-    required this.imageUrl,
+    super.key, 
     required this.id,
-    super.key,
+    required this.imageUrl,
+    required this.date,
   });
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(date);
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -59,11 +65,11 @@ class ImageCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Image Title',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    "${DateFormat('yyyy-MM-dd').format(dateTime)}\n${DateFormat('hh:mm a').format(dateTime)}",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                    icon: Icon(Icons.info_outline),
+                    icon: const Icon(Icons.info_outline),
                     onPressed: () {},
                   ),
                 ],

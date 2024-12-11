@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:getx_b_dental/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 class VisitDetailsController extends GetxController {
   var jwt = '';
@@ -15,6 +16,8 @@ class VisitDetailsController extends GetxController {
   var patientName = '';
   var patientSex = '';
   var patientPhone = '';
+  var casePhotos = <Map<String, dynamic>>[];
+
 
   @override
   void onInit() {
@@ -53,6 +56,7 @@ class VisitDetailsController extends GetxController {
         patientName = res['patient_name'];
         patientSex = res['patient_sex'];
         patientPhone = res['patient_phone'];
+        casePhotos.assignAll(List<Map<String, dynamic>>.from(res['case_photos']));
         update();
       } else {
         final res = jsonDecode(response.body);
@@ -68,4 +72,44 @@ class VisitDetailsController extends GetxController {
     sharedPreferences!.remove("login");
     Get.offAllNamed("/");
   }
+
+
+// Add this function to your VisitDetailsController class
+Future<void> uploadCasePhoto(String type) async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  
+  if (image != null) {
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse('$url/casePhotos/'));
+      
+      request.headers.addAll({
+        'Authorization': 'Bearer $jwt'
+      });
+
+      request.fields['visit_id'] = id.toString();
+      request.fields['patient_id'] = patientId.toString();
+      request.fields['date'] = DateTime.now().toIso8601String();
+      request.fields['type'] = type;
+      
+      request.files.add(await http.MultipartFile.fromPath(
+        'photo',
+        image.path,
+      ));
+      
+      final response = await request.send();
+      final responseData = await response.stream.bytesToString();
+      
+      if (response.statusCode == 200) {
+        await getInfo(); 
+        Get.snackbar('Success', 'Photo uploaded successfully');
+      } else {
+        Get.snackbar('Error', jsonDecode(responseData)['error']);
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to upload photo');
+    }
+  }
+}
+
 }

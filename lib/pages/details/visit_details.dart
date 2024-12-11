@@ -62,7 +62,9 @@ class VisitDetails extends StatelessWidget {
                 children: [
                   buildSectionTitle("CasePhotos:", textTheme.titleSmall),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.uploadCasePhoto("IntraOral");
+                    },
                     icon: const Icon(
                       Icons.add_circle_outline_sharp,
                       size: 30,
@@ -70,27 +72,15 @@ class VisitDetails extends StatelessWidget {
                   )
                 ],
               ),
-              CardScroller(
+              GetBuilder<VisitDetailsController>(
+                      builder: (controller) => CardScroller(
                 height: 240,
                 scrollDirection: Axis.horizontal,
-                  children: [
-                ImageCard(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-",
-                    id: 1),
-                ImageCard(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-",
-                    id: 1),
-                ImageCard(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-",
-                    id: 1),
-                ImageCard(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-",
-                    id: 1),
-              ],),
+                children: controller.casePhotos
+                    .map((cp) =>
+                        ImageCard( id: cp['id'],date: cp['date'], imageUrl: cp['imageUrl'],))
+                    .toList(),
+              )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
