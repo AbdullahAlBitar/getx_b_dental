@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/visit_details_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:getx_b_dental/pages/cards/image_card.dart';
 import 'package:getx_b_dental/pages/cards/nav_bar.dart';
 import 'package:getx_b_dental/pages/cards/patient_card.dart';
 
@@ -55,6 +56,39 @@ class VisitDetails extends StatelessWidget {
                         style: textTheme.labelSmall,
                       )),
               const SizedBox(height: 10),
+              Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildSectionTitle("CasePhotos:", textTheme.titleSmall),
+                      IconButton(
+                        onPressed: () {
+                        },
+                        icon: const Icon(
+                          Icons.add_circle_outline_sharp,
+                          size: 30,
+                        ),
+                      )
+                    ],
+                  ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ImageCard(imageUrl: "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-", id: 1),
+                      const SizedBox(width: 10), // Add spacing between cards
+                      ImageCard(imageUrl: "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-", id: 1),
+                      const SizedBox(width: 10),
+                      ImageCard(imageUrl: "https://drive.google.com/uc?id=1paRgFPULNPgQNUS-R7mOJd1n4fjE5ub-", id: 1),
+                    ],
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -121,3 +155,13 @@ class VisitDetails extends StatelessWidget {
     );
   }
 }
+
+  Widget buildSectionTitle(String title, TextStyle? style) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+      child: Text(
+        title,
+        style: style,
+      ),
+    );
+  }
