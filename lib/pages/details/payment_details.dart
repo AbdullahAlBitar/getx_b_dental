@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/payment_details_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:getx_b_dental/pages/cards/nav_bar.dart';
+import 'package:getx_b_dental/pages/widgets/nav_bar.dart';
 import 'package:getx_b_dental/pages/cards/patient_card.dart';
 
 class PaymentDetails extends StatelessWidget {

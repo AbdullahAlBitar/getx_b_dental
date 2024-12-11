@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_b_dental/controllers/patient_details_controller.dart';
-import 'package:getx_b_dental/pages/cards/nav_bar.dart';
+import 'package:getx_b_dental/pages/widgets/nav_bar.dart';
 import 'package:getx_b_dental/pages/cards/payment_card.dart';
 import 'package:getx_b_dental/pages/cards/visit_card.dart';
 
