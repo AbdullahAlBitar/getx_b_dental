@@ -14,9 +14,9 @@ import 'package:getx_b_dental/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPreferences;
-const url = "http://192.168.1.17:3000";
+// const url = "http://192.168.1.17:3000";
 // const url = "http://192.168.137.1:3000";
-// const url = "https://b-dental.onrender.com";
+const url = "https://b-dental.onrender.com";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -74,7 +74,7 @@ class VisitDetails extends StatelessWidget {
               ),
               GetBuilder<VisitDetailsController>(
                       builder: (controller) => CardScroller(
-                height: 240,
+                height: 260,
                 scrollDirection: Axis.horizontal,
                 children: controller.casePhotos
                     .map((cp) =>
