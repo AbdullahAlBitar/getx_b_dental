@@ -71,7 +71,7 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar(
         "Error",
-        "Network error. Please try again later.",
+        e.toString(),
       );
     } finally {
       isLoading = false;

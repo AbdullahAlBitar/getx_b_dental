@@ -7,7 +7,8 @@ class Login extends StatelessWidget {
 
   final AuthController controller = Get.put(AuthController());
   final FocusNode phoneFocus = FocusNode(); // FocusNode for the phone field
-  final FocusNode passwordFocus = FocusNode(); // FocusNode for the password field
+  final FocusNode passwordFocus =
+      FocusNode(); // FocusNode for the password field
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,11 @@ class Login extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Get.toNamed("/signup");
+                    // Get.toNamed("/signup");
+                    Get.snackbar(
+                      'New Doctor?!!',
+                      'Call me 0994669593',
+                    );
                   },
                   child: Text(
                     "Sign Up?",

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_b_dental/controllers/delete_controller.dart';
 
 class NavBar extends StatelessWidget {
-  final String page;
+  final String type;
   final int id;
 
-  const NavBar(this.page, this.id, {super.key});
+  NavBar(this.type, this.id, {super.key});
+  final DeleteController controller = Get.find();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class NavBar extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        Get.offAllNamed("/home");
+                        controller.deleteItem(id, type);
                       },
                       icon: const Icon(
                         Icons.delete_outline,

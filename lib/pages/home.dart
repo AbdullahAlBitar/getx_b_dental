@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_b_dental/controllers/delete_controller.dart';
 import 'package:getx_b_dental/controllers/doctor_controller.dart';
 import 'package:getx_b_dental/controllers/home_controller.dart';
 import 'package:getx_b_dental/controllers/patient_controller.dart';
@@ -13,6 +14,7 @@ class Home extends StatelessWidget {
   final patientController = Get.lazyPut(() => PatientController(), fenix: true);
   final paymentController = Get.lazyPut(() => PaymentController(), fenix: true);
   final visitController = Get.lazyPut(() => VisitController(), fenix: true);
+  final deleteController = Get.lazyPut(() => DeleteController(), fenix: true);
   final HomeController controller = Get.put(HomeController(), permanent: true);
 
   final List<BottomNavigationBarItem> desNav = [
